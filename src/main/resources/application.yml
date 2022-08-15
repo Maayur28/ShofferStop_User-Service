@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: "mayur28"
+    password: "M@yur2821"
+    url: "jdbc:sqlserver://shofferstop.database.windows.net:1433;database=Users_DB;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30"
+  jpa:
+    hibernate:
+      ddl-auto: "validate"
+  security:
+    user:
+      name: "root"
+      password: "root"  
+user:
+  password:
+    salt: "shofferStop_mayur28"
