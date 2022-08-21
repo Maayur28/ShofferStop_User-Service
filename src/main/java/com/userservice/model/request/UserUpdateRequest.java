@@ -8,12 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserCreateRequest {
+public class UserUpdateRequest {
 	@NonNull
 	private String firstName;
-	@NonNull
-	private String userName;
-	@NonNull
-	private String password;
-	private boolean remember;
+	private String lastName;
+	private String userDob;
+	private String userGender;
 }

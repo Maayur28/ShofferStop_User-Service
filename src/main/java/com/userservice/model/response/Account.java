@@ -7,8 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserCreateResponse {
+public class Account {
 	private String firstName;
-	private String accessToken;
-	private String refreshToken;
+	private String lastName;
+	private String userDob;
+	private String userGender;
 }

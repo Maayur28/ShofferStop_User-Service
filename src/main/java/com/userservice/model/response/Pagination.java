@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserCreateResponse {
-	private String firstName;
-	private String accessToken;
-	private String refreshToken;
+public class Pagination {
+	private int page;
+	private int pageSize;
 }

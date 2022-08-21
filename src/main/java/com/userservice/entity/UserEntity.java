@@ -11,10 +11,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity(name = "users")
 public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = -5914219496081732356L;
@@ -43,5 +43,10 @@ public class UserEntity implements Serializable {
 	@Column(nullable = false)
 	private int emailVerificationStatus = 0;
 	
-	private String userImage;
+	@Column
+	private String userDob;
+	
+	@Column
+	private String userGender;
+	
 }

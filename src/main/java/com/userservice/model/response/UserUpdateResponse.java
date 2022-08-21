@@ -1,4 +1,4 @@
-package com.userservice.model.request;
+package com.userservice.model.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,12 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserCreateRequest {
+public class UserUpdateResponse {
 	@NonNull
 	private String firstName;
-	@NonNull
-	private String userName;
-	@NonNull
-	private String password;
-	private boolean remember;
+	private String lastName;
+	private String userDob;
+	private String userGender;
 }

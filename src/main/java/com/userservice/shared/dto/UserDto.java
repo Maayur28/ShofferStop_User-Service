@@ -22,5 +22,4 @@ public class UserDto implements Serializable {
 	private String emailVerificationToken;
 	private int emailVerificationStatus = 0;
 	private boolean remember;
-	private String userImage;
 }
