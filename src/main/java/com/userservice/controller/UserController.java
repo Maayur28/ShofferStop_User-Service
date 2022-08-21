@@ -40,7 +40,7 @@ import io.jsonwebtoken.security.SignatureException;
 
 @RestController
 @RequestMapping("users")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = { "http://localhost:3000", "https://www.shofferstop.com" })
 public class UserController {
 
 	@Autowired
@@ -163,8 +163,6 @@ public class UserController {
 			return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
 		}
 	}
-
-	
 
 	@RequestMapping(value = "/address", method = RequestMethod.POST)
 	public ResponseEntity<?> createUserAddress(HttpServletRequest request,
