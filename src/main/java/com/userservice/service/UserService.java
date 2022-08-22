@@ -34,4 +34,6 @@ public interface UserService {
 	UserCreateAddressResponse updateDefaultAddress(String token, int page, int pageSize, String addressId);
 
 	UserUpdateResponse userUpdateRequest(String token, UserUpdateRequest userUpdateRequest);
+
+	UserCreateAddressResponse getUserSearchAddress(String token, String search, int page, int pageSize);
 }

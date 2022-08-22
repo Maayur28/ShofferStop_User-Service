@@ -152,6 +152,31 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping(value = "/address/search", method = RequestMethod.GET)
+	public ResponseEntity<?> getUserAddress(HttpServletRequest request, @RequestParam String search,
+			@RequestParam int page, @RequestParam int pageSize) throws Exception {
+		String tokenHeader = request.getHeader("Authorization");
+		String token = null;
+		if (tokenHeader != null && tokenHeader.startsWith("Bearer")) {
+			token = tokenHeader.substring(7);
+			try {
+				return ResponseEntity.ok(userService.getUserSearchAddress(token, search, page, pageSize));
+			} catch (IllegalArgumentException e) {
+				throw new Exception(e.getMessage());
+			} catch (ExpiredJwtException e) {
+				throw new Exception(e.getMessage());
+			} catch (SignatureException e) {
+				throw new Exception(e.getMessage());
+			} catch (Exception e) {
+				return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+			}
+		} else {
+			JSONObject obj = new JSONObject();
+			obj.put("error", ErrorMessages.AUTHENTICATION_FAILED.getErrorMessage().toString());
+			return new ResponseEntity<>(obj, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+		}
+	}
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> createUser(@RequestBody UserCreateRequest userCreateRequest) throws Exception {
 		UserDto userDto = new UserDto();

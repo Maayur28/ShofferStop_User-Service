@@ -173,6 +173,36 @@ public class UserServiceImpl implements UserService {
 		}
 		return addressResponse;
 	}
+	
+	@Override
+	public UserCreateAddressResponse getUserSearchAddress(String token,String search, int page, int pageSize) {
+		String userId = null;
+		if (!jwtTokenUtil.validateToken(token)) {
+			userId = jwtTokenUtil.getUserIdFromToken(token);
+		}
+		UserCreateAddressResponse addressResponse = new UserCreateAddressResponse();
+		
+		if (userId != null && page != 0 && pageSize != 0) {
+			Pageable pageable = PageRequest.of(page - 1, pageSize,
+					Sort.by("defaultAddress").descending().and(Sort.by("id").descending()));
+			Page<UserAddressEntity> addressList = addressRepository.findSearchAddressByName(userId,search,pageable);
+
+			List<UserCreateAddressResponseDTO> addresses = new ArrayList<>();
+			for (UserAddressEntity addEntity : addressList.getContent()) {
+				UserCreateAddressResponseDTO address = new UserCreateAddressResponseDTO();
+				BeanUtils.copyProperties(addEntity, address);
+				addresses.add(address);
+			}
+			Pagination pagination = new Pagination();
+			pagination.setPage(addressList.getPageable().getPageNumber() + 1);
+			pagination.setPageSize(addressList.getPageable().getPageSize());
+
+			addressResponse.setTotal(addressList.getTotalElements());
+			addressResponse.setPagination(pagination);
+			addressResponse.setAddresses(addresses);
+		}
+		return addressResponse;
+	}
 
 	@Override
 	public UserCreateAddressResponse updateDefaultAddress(String token, int page, int pageSize, String addressId) {

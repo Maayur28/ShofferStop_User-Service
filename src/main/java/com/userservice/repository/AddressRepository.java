@@ -21,6 +21,16 @@ public interface AddressRepository extends PagingAndSortingRepository<UserAddres
 	@Query("SELECT a FROM address a WHERE a.userId = :userId AND a.defaultAddress = 1")
 	UserAddressEntity findAllByUserIdAndDefaultAddress(String userId);
 
+	@Query("SELECT a FROM address a where  a.userId = :userId AND "
+			+ "UPPER(a.fullName) LIKE concat('%',upper(:search),'%')"
+			+ "OR UPPER(a.houseAddress) LIKE concat('%',upper(:search),'%')"
+			+ "OR UPPER(a.city) LIKE concat('%',upper(:search),'%')"
+			+ "OR UPPER(a.pincode) LIKE concat('%',upper(:search),'%')"
+			+ "OR UPPER(a.state) LIKE concat('%',upper(:search),'%')"
+			+ "OR UPPER(a.country) LIKE concat('%',upper(:search),'%')"
+			+ "OR UPPER(a.mobile) LIKE concat('%',upper(:search),'%')")
+	Page<UserAddressEntity> findSearchAddressByName(String userId, String search, Pageable pageable);
+
 	@Modifying
 	@Transactional
 	@Query("UPDATE address SET default_address = 0 where userId = :userId and default_address = 1")
