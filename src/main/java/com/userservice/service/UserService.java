@@ -1,7 +1,5 @@
 package com.userservice.service;
 
-import org.json.JSONObject;
-
 import com.userservice.entity.UserEntity;
 import com.userservice.model.request.UserCreateAddressRequest;
 import com.userservice.model.request.UserUpdateRequest;
@@ -9,13 +7,14 @@ import com.userservice.model.response.Account;
 import com.userservice.model.response.UserCreateAddressResponse;
 import com.userservice.model.response.UserCreateAddressResponseDTO;
 import com.userservice.model.response.UserCreateResponse;
+import com.userservice.model.response.UserIdResponse;
 import com.userservice.model.response.UserUpdateResponse;
 import com.userservice.shared.dto.UserDto;
 
 public interface UserService {
 	UserCreateResponse createUser(UserDto user) throws Exception;
 	
-	JSONObject getUser(String token);
+	UserIdResponse getUser(String token);
 
 	UserEntity loadUserByUsername(String username);
 

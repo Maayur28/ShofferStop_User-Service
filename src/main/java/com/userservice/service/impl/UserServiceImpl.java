@@ -30,6 +30,7 @@ import com.userservice.model.response.Pagination;
 import com.userservice.model.response.UserCreateAddressResponse;
 import com.userservice.model.response.UserCreateAddressResponseDTO;
 import com.userservice.model.response.UserCreateResponse;
+import com.userservice.model.response.UserIdResponse;
 import com.userservice.model.response.UserUpdateResponse;
 import com.userservice.repository.AddressRepository;
 import com.userservice.repository.UserRepository;
@@ -134,14 +135,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public JSONObject getUser(String token) {
+	public UserIdResponse getUser(String token) {
 		String userId = null;
 		if (!jwtTokenUtil.validateToken(token)) {
 			userId = jwtTokenUtil.getUserIdFromToken(token);
 		}
-		JSONObject obj = new JSONObject();
-		obj.put("userId", userId);
-		return obj;
+		UserIdResponse userIdResponse = new UserIdResponse();
+		userIdResponse.setUserId(userId);
+		
+		return userIdResponse;
 	}
 
 	@Override
