@@ -25,12 +25,16 @@ import com.userservice.model.request.AuthenticationRequest;
 import com.userservice.model.request.UserCreateAddressRequest;
 import com.userservice.model.request.UserCreateRequest;
 import com.userservice.model.request.UserUpdateRequest;
+import com.userservice.model.request.WishlistCreateRequest;
 import com.userservice.model.response.ErrorMessages;
 import com.userservice.model.response.UserCreateAddressResponse;
 import com.userservice.model.response.UserCreateAddressResponseDTO;
 import com.userservice.model.response.UserCreateResponse;
 import com.userservice.model.response.UserUpdateResponse;
+import com.userservice.model.response.WishlistProdResponse;
+import com.userservice.model.response.WishlistResponse;
 import com.userservice.service.UserService;
+import com.userservice.service.WishlistService;
 import com.userservice.shared.dto.UserDto;
 import com.userservice.utils.AuthenticationUtils;
 import com.userservice.utils.JwtTokenUtil;
@@ -48,6 +52,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	WishlistService wishlistService;
 
 	@Autowired
 	AuthenticationUtils authenticationUtils;
@@ -284,6 +291,63 @@ public class UserController {
 			try {
 				UserUpdateResponse userResponse = userService.userUpdateRequest(token, userRequest);
 				return ResponseEntity.ok(userResponse);
+			} catch (Exception e) {
+				return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			JSONObject obj = new JSONObject();
+			obj.put("error", ErrorMessages.AUTHENTICATION_FAILED.getErrorMessage().toString());
+			return new ResponseEntity<>(obj, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+		}
+	}
+	
+	@RequestMapping(value = "/wishlist", method = RequestMethod.POST)
+	public ResponseEntity<?> createUserRating(HttpServletRequest request,@RequestBody WishlistCreateRequest wishlistCreateRequest) throws Exception {
+		String tokenHeader = request.getHeader("Authorization");
+		String token = null;
+		if (tokenHeader != null && tokenHeader.startsWith("Bearer")) {
+			token = tokenHeader.substring(7);
+			try {
+				WishlistResponse totalRatings = wishlistService.createWishlist(token,wishlistCreateRequest);
+				return ResponseEntity.ok(totalRatings);
+			} catch (Exception e) {
+				return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			JSONObject obj = new JSONObject();
+			obj.put("error", ErrorMessages.AUTHENTICATION_FAILED.getErrorMessage().toString());
+			return new ResponseEntity<>(obj, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+		}
+	}
+	
+	@RequestMapping(value = "/wishlist", method = RequestMethod.GET)
+	public ResponseEntity<?> getWishlist(HttpServletRequest request) throws Exception {
+		String tokenHeader = request.getHeader("Authorization");
+		String token = null;
+		if (tokenHeader != null && tokenHeader.startsWith("Bearer")) {
+			token = tokenHeader.substring(7);
+			try {
+				WishlistResponse totalRatings = wishlistService.getWishlist(token);
+				return ResponseEntity.ok(totalRatings);
+			} catch (Exception e) {
+				return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			JSONObject obj = new JSONObject();
+			obj.put("error", ErrorMessages.AUTHENTICATION_FAILED.getErrorMessage().toString());
+			return new ResponseEntity<>(obj, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+		}
+	}
+
+	@RequestMapping(value = "/wishlist/{productName}", method = RequestMethod.GET)
+	public ResponseEntity<?> getWishlistByProductName(HttpServletRequest request,@PathVariable String productName) throws Exception {
+		String tokenHeader = request.getHeader("Authorization");
+		String token = null;
+		if (tokenHeader != null && tokenHeader.startsWith("Bearer")) {
+			token = tokenHeader.substring(7);
+			try {
+				WishlistProdResponse totalRatings = wishlistService.getWishlistByProdName(token,productName);
+				return ResponseEntity.ok(totalRatings);
 			} catch (Exception e) {
 				return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
 			}

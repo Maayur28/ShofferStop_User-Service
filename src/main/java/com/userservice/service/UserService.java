@@ -13,13 +13,13 @@ import com.userservice.shared.dto.UserDto;
 
 public interface UserService {
 	UserCreateResponse createUser(UserDto user) throws Exception;
-	
+
 	UserIdResponse getUser(String token);
 
 	UserEntity loadUserByUsername(String username);
 
 	Account getAccount(String token);
-	
+
 	UserCreateAddressResponse getUserAddress(String token, int page, int pageSize);
 
 	UserCreateAddressResponse createUserAddress(UserCreateAddressRequest userAddress, String token, int page,

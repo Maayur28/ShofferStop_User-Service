@@ -346,6 +346,6 @@ public class UserServiceImpl implements UserService {
 	public UserEntity loadUserByUsername(String userName) {
 		UserEntity userEntity = userRepository.userName(userName);
 		return userEntity;
-	}
+	}	
 
 }

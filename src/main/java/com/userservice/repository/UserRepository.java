@@ -19,4 +19,5 @@ public interface UserRepository extends CrudRepository<UserEntity, String> {
 	@Transactional
 	@Query("UPDATE users SET firstName = :firstName,lastName = :lastName,userDob = :userDob,userGender = :userGender where userId = :userId")
 	void updateprofile(String userId, String firstName, String lastName, String userDob, String userGender);
+
 }
