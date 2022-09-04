@@ -11,4 +11,6 @@ public interface WishlistService {
 	WishlistResponse getWishlist(String token) throws Exception;
 
 	WishlistProdResponse getWishlistByProdName(String token, String productName) throws Exception;
+
+	WishlistResponse deleteWishlist(String token, String wishlistId) throws Exception;
 }

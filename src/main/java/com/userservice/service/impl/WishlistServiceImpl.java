@@ -96,6 +96,34 @@ public class WishlistServiceImpl implements WishlistService {
 
 		return wishlistResponse;
 	}
+	
+	@Override
+	public WishlistResponse deleteWishlist(String token,String wishlistId) throws Exception {
+		String userId = null;
+		if (!jwtTokenUtil.validateToken(token)) {
+			userId = jwtTokenUtil.getUserIdFromToken(token);
+		}
+		if (userId == null) {
+			JSONObject obj = new JSONObject();
+			obj.put("error", ErrorMessages.AUTHENTICATION_FAILED.getErrorMessage().toString());
+			throw new Exception(obj.toString());
+		}
+		
+		wishlistRepository.deleteWishlist(userId, wishlistId);
+		
+		List<WishlistEntity> userWishlist = wishlistRepository.getWishlist(userId);
+
+		List<String> wishlists = new ArrayList<>();
+		if (userWishlist != null) {
+			for (WishlistEntity wishlist : userWishlist) {
+				wishlists.add(wishlist.getProductName());
+			}
+		}
+		WishlistResponse wishlistResponse = new WishlistResponse();
+		wishlistResponse.setProducts(wishlists);
+
+		return wishlistResponse;
+	}
 
 	@Override
 	public WishlistProdResponse getWishlistByProdName(String token, String productName) throws Exception {

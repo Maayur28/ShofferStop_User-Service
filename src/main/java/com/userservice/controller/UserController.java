@@ -52,7 +52,7 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	WishlistService wishlistService;
 
@@ -281,6 +281,26 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping(value = "/wishlist/{wishlistId}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteWishlist(HttpServletRequest request, @PathVariable String wishlistId)
+			throws Exception {
+		String tokenHeader = request.getHeader("Authorization");
+		String token = null;
+		if (tokenHeader != null && tokenHeader.startsWith("Bearer")) {
+			token = tokenHeader.substring(7);
+			try {
+				WishlistResponse totalProducts = wishlistService.deleteWishlist(token, wishlistId);
+				return ResponseEntity.ok(totalProducts);
+			} catch (Exception e) {
+				return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			JSONObject obj = new JSONObject();
+			obj.put("error", ErrorMessages.AUTHENTICATION_FAILED.getErrorMessage().toString());
+			return new ResponseEntity<>(obj, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+		}
+	}
+
 	@PutMapping
 	public ResponseEntity<?> updateUser(HttpServletRequest request, @RequestBody UserUpdateRequest userRequest)
 			throws Exception {
@@ -300,15 +320,16 @@ public class UserController {
 			return new ResponseEntity<>(obj, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
+
 	@RequestMapping(value = "/wishlist", method = RequestMethod.POST)
-	public ResponseEntity<?> createUserRating(HttpServletRequest request,@RequestBody WishlistCreateRequest wishlistCreateRequest) throws Exception {
+	public ResponseEntity<?> createUserRating(HttpServletRequest request,
+			@RequestBody WishlistCreateRequest wishlistCreateRequest) throws Exception {
 		String tokenHeader = request.getHeader("Authorization");
 		String token = null;
 		if (tokenHeader != null && tokenHeader.startsWith("Bearer")) {
 			token = tokenHeader.substring(7);
 			try {
-				WishlistResponse totalRatings = wishlistService.createWishlist(token,wishlistCreateRequest);
+				WishlistResponse totalRatings = wishlistService.createWishlist(token, wishlistCreateRequest);
 				return ResponseEntity.ok(totalRatings);
 			} catch (Exception e) {
 				return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
@@ -319,7 +340,7 @@ public class UserController {
 			return new ResponseEntity<>(obj, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
+
 	@RequestMapping(value = "/wishlist", method = RequestMethod.GET)
 	public ResponseEntity<?> getWishlist(HttpServletRequest request) throws Exception {
 		String tokenHeader = request.getHeader("Authorization");
@@ -340,13 +361,14 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/wishlist/{productName}", method = RequestMethod.GET)
-	public ResponseEntity<?> getWishlistByProductName(HttpServletRequest request,@PathVariable String productName) throws Exception {
+	public ResponseEntity<?> getWishlistByProductName(HttpServletRequest request, @PathVariable String productName)
+			throws Exception {
 		String tokenHeader = request.getHeader("Authorization");
 		String token = null;
 		if (tokenHeader != null && tokenHeader.startsWith("Bearer")) {
 			token = tokenHeader.substring(7);
 			try {
-				WishlistProdResponse totalRatings = wishlistService.getWishlistByProdName(token,productName);
+				WishlistProdResponse totalRatings = wishlistService.getWishlistByProdName(token, productName);
 				return ResponseEntity.ok(totalRatings);
 			} catch (Exception e) {
 				return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
