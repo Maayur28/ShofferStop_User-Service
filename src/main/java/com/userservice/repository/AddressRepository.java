@@ -18,10 +18,10 @@ public interface AddressRepository extends PagingAndSortingRepository<UserAddres
 
 	List<UserAddressEntity> findAllByUserId(String userId);
 
-	@Query("SELECT a FROM address a WHERE a.userId = :userId AND a.defaultAddress = 1")
+	@Query("SELECT a FROM userAddress a WHERE a.userId = :userId AND a.defaultAddress = 1")
 	UserAddressEntity findAllByUserIdAndDefaultAddress(String userId);
 
-	@Query("SELECT a FROM address a where  a.userId = :userId AND "
+	@Query("SELECT a FROM userAddress a where  a.userId = :userId AND "
 			+ "UPPER(a.fullName) LIKE concat('%',upper(:search),'%')"
 			+ "OR UPPER(a.houseAddress) LIKE concat('%',upper(:search),'%')"
 			+ "OR UPPER(a.city) LIKE concat('%',upper(:search),'%')"
@@ -33,17 +33,17 @@ public interface AddressRepository extends PagingAndSortingRepository<UserAddres
 
 	@Modifying
 	@Transactional
-	@Query("UPDATE address SET default_address = 0 where userId = :userId and default_address = 1")
+	@Query("UPDATE userAddress SET default_address = 0 where userId = :userId and default_address = 1")
 	void updateDefaultAddressToZero(String userId);
 
 	@Modifying
 	@Transactional
-	@Query("UPDATE address SET default_address = 1 where userId = :userId and addressId = :addressId")
+	@Query("UPDATE userAddress SET default_address = 1 where userId = :userId and addressId = :addressId")
 	void updateDefaultAddressToOne(String userId, String addressId);
 
 	@Modifying
 	@Transactional
-	@Query("UPDATE address SET city = :city,country = :country,fullName = :fullName,houseAddress = :houseAddress,mobile = :mobile,pincode = :pincode,state = :state,defaultAddress = :defaultAddress  where userId = :userId and addressId = :addressId")
+	@Query("UPDATE userAddress SET city = :city,country = :country,fullName = :fullName,houseAddress = :houseAddress,mobile = :mobile,pincode = :pincode,state = :state,defaultAddress = :defaultAddress  where userId = :userId and addressId = :addressId")
 	void updateDefaultAddress(String userId, String addressId, String city, String country, String fullName,
 			String houseAddress, String mobile, Integer pincode, String state, Integer defaultAddress);
 
@@ -51,7 +51,7 @@ public interface AddressRepository extends PagingAndSortingRepository<UserAddres
 
 	@Modifying
 	@Transactional
-	@Query("UPDATE address SET default_address = 0 where userId = :userId")
+	@Query("UPDATE userAddress SET default_address = 0 where userId = :userId")
 	void setAllDefaultAddress(String userId);
 
 	@Modifying
