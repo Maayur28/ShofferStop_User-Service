@@ -44,7 +44,7 @@ import io.jsonwebtoken.security.SignatureException;
 
 @RestController
 @RequestMapping("users")
-@CrossOrigin(origins = { "http://localhost:3000", "https://www.shofferstop.com" })
+@CrossOrigin(origins = { "https://shofferstop.vercel.app", "https://www.shofferstop.in" })
 public class UserController {
 
 	@Autowired
