@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserUpdateResponse {
-	@NonNull
-	private String firstName;
-	private String lastName;
-	private String userDob;
-	private String userGender;
+    @NonNull
+    private String firstName;
+    private String lastName;
+    private String userDob;
+    private String userGender;
 }

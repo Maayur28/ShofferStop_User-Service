@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserCreateResponse {
-	private String firstName;
-	private String accessToken;
-	private String refreshToken;
+    private String firstName;
+    private String accessToken;
+    private String refreshToken;
 }

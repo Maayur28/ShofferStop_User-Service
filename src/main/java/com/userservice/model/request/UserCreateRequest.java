@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserCreateRequest {
-	@NonNull
-	private String firstName;
-	@NonNull
-	private String userName;
-	@NonNull
-	private String password;
-	private boolean remember;
+    @NonNull
+    private String firstName;
+    @NonNull
+    private String userName;
+    @NonNull
+    private String password;
+    private boolean remember;
 }

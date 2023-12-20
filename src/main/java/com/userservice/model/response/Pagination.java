@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Pagination {
-	private int page;
-	private int pageSize;
+    private int page;
+    private int pageSize;
 }

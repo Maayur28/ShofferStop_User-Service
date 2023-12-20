@@ -6,11 +6,11 @@ import com.userservice.model.response.WishlistResponse;
 
 public interface WishlistService {
 
-	WishlistResponse createWishlist(String token, WishlistCreateRequest wishlistCreateRequest) throws Exception;
+    WishlistResponse createWishlist(String token, WishlistCreateRequest wishlistCreateRequest) throws Exception;
 
-	WishlistResponse getWishlist(String token) throws Exception;
+    WishlistResponse getWishlist(String token) throws Exception;
 
-	WishlistProdResponse getWishlistByProdName(String token, String productName) throws Exception;
+    WishlistProdResponse getWishlistByProdName(String token, String productName) throws Exception;
 
-	WishlistResponse deleteWishlist(String token, String wishlistId) throws Exception;
+    WishlistResponse deleteWishlist(String token, String wishlistId) throws Exception;
 }

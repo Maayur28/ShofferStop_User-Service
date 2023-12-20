@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserIdResponse {
-	private String userId;
+    private String userId;
 }

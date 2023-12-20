@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class WishlistCreateRequest {
-	private String productName;
+    private String productName;
 }

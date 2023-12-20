@@ -8,13 +8,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserCreateAddressResponseDTO {
-	private String addressId;
-	private String country;
-	private String fullName;
-	private Integer pincode;
-	private String mobile;
-	private String houseAddress;
-	private String state;
-	private String city;
-	private Integer defaultAddress;
+    private String addressId;
+    private String country;
+    private String fullName;
+    private Integer pincode;
+    private String mobile;
+    private String houseAddress;
+    private String state;
+    private String city;
+    private Integer defaultAddress;
 }

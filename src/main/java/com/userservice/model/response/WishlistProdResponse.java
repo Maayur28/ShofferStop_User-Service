@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class WishlistProdResponse {
-	private boolean wishlisted = false;
+    private boolean wishlisted = false;
 }

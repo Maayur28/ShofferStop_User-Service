@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AuthenticationRequest {
-	private String userName;
-	private String password;
-	private boolean remember;
+    private String userName;
+    private String password;
+    private boolean remember;
 }
