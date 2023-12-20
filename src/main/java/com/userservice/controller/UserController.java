@@ -40,7 +40,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
-        UserEntity userEntity = new UserEntity();
+        UserEntity userEntity;
         try {
             JSONObject obj = new JSONObject();
             obj.put("error", ErrorMessages.AUTHENTICATION_FAILED.getErrorMessage());
