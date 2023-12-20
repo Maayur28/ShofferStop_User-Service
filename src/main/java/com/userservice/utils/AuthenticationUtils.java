@@ -32,16 +32,12 @@ public class AuthenticationUtils {
 
 	public boolean isValidCredentials(UserEntity userEntity, AuthenticationRequest authenticationRequest,
 			JSONObject obj) throws Exception {
-		byte[] saltKey = new String(salt).getBytes();
+		byte[] saltKey = salt.getBytes();
 		SecretKeySpec key = createSecretKey(authenticationRequest.getPassword().toCharArray(), saltKey, 40000, 128);
 		try {
 			String decryptedPassword = decrypt(userEntity.getEncryptedPassword(), key);
-			if (decryptedPassword.equals(authenticationRequest.getPassword())
-					&& userEntity.getUserName().equals(authenticationRequest.getUserName())) {
-				return true;
-			} else {
-				return false;
-			}
+            return decryptedPassword.equals(authenticationRequest.getPassword())
+                    && userEntity.getUserName().equals(authenticationRequest.getUserName());
 		} catch (Exception e) {
 			throw new Exception(obj.toString());
 		}

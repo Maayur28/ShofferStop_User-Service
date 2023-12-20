@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 		UserEntity userEntity = new UserEntity();
 		if (loadUserByUsername(user.getUserName()) != null) {
 			JSONObject obj = new JSONObject();
-			obj.put("error", ErrorMessages.USER_ALREADY_EXISTS.getErrorMessage().toString());
+			obj.put("error", ErrorMessages.USER_ALREADY_EXISTS.getErrorMessage());
 			throw new Exception(obj.toString());
 		}
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 		String uniqueID = UUID.randomUUID().toString();
 		userEntity.setUserId(uniqueID);
 		String password = user.getPassword();
-		byte[] saltKey = new String(salt).getBytes();
+		byte[] saltKey = salt.getBytes();
 		SecretKeySpec key = createSecretKey(password.toCharArray(), saltKey, 40000, 128);
 		String encryptedPassword = encrypt(password, key);
 		userEntity.setEncryptedPassword(encryptedPassword);
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 		}
 		if (userId == null) {
 			JSONObject obj = new JSONObject();
-			obj.put("error", ErrorMessages.AUTHENTICATION_FAILED.getErrorMessage().toString());
+			obj.put("error", ErrorMessages.AUTHENTICATION_FAILED.getErrorMessage());
 			throw new Exception(obj.toString());
 		}
 
