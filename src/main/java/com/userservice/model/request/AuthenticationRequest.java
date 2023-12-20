@@ -1,11 +1,9 @@
 package com.userservice.model.request;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class AuthenticationRequest {
     private String userName;
