@@ -23,7 +23,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("users")
-@CrossOrigin(origins = {"https://shofferstop.vercel.app", "https://www.shofferstop.in"})
+@CrossOrigin(origins = {"https://www.shofferstop.in"})
 public class UserController {
 
     @Autowired
